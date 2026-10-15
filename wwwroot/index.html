@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BERICAP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css?v=bericap13">
+</head>
+<body>
+  <main class="dashboard compact">
+    <header class="topbar">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/assets/logo.png" alt="BERICAP">
+      </a>
+      <div class="clock"><strong id="clock">00:00:00</strong><small id="date"></small></div>
+      <button id="fullscreen" class="icon-button" title="Tam ekran" aria-label="Tam ekran">⛶</button>
+      <a id="page-link" class="icon-button" href="/admin.html" title="Yönetim paneli" aria-label="Yönetim paneli">⚙</a>
+    </header>
+
+    <section class="metrics" aria-label="Fabrika mevcudu">
+      <article class="metric">
+        <div class="metric-top"><span>İÇERİDEKİ PERSONEL</span><span class="metric-icon">♙</span></div>
+        <div class="metric-value" id="personnel-count">—</div>
+        <div class="metric-bottom"><span class="green">●</span> Aktif personel <span class="metric-note">KARTLI GEÇİŞ</span></div>
+      </article>
+      <article class="metric">
+        <div class="metric-top"><span>ZİYARETÇİ / TAŞERON</span><span class="metric-icon">♧</span></div>
+        <div class="metric-value" id="visitor-count">—</div>
+        <div class="metric-bottom"><span class="cyan">●</span> Tesiste bulunan <span class="metric-note">MİSAFİR</span></div>
+      </article>
+      <article class="metric total">
+        <div class="metric-top"><span>TOPLAM FABRİKA MEVCUDU</span><span class="metric-icon">◈</span></div>
+        <div class="metric-value" id="total-count">—</div>
+        <div class="metric-bottom"><span class="green">●</span> Birlikte, güvendeyiz <span class="metric-note">ANLIK</span></div>
+      </article>
+      <article class="metric safety">
+        <div class="metric-top"><span>KAZASIZ GÜN</span><span class="award">✧</span></div>
+        <div class="safety-value"><strong id="safe-days">—</strong><span>GÜN</span></div>
+        <div class="metric-bottom">Her gün, önce güvenlik.</div>
+      </article>
+    </section>
+
+    <section id="normal-stage" class="stage">
+      <div class="team-heading">
+        <div>
+          <h2>Acil durum ekipleri</h2>
+        </div>
+        <div class="legend">
+          <span class="legend-in"><i class="dot green-bg"></i>İçeride</span>
+          <span><i class="dot amber-bg"></i>Eksik ekip</span>
+        </div>
+      </div>
+      <div class="teams" id="teams"></div>
+    </section>
+
+    <section id="emergency-stage" class="emergency-stage" hidden>
+      <div class="alarm-banner">
+        <div>
+          <span id="alarm-label">ACİL DURUM / TAHLİYE MODU</span>
+          <h2>İÇERİDE KALAN MEVCUT</h2>
+          <small>Turnike kayıtlarına göre · Toplanma alanı teyidi gereklidir</small>
+        </div>
+        <strong id="remaining-count">0</strong>
+      </div>
+      <div class="evac-columns">
+        <div>
+          <div class="team-heading">
+            <h2>İçeride görünen kişiler</h2>
+            <span id="evac-page"></span>
+          </div>
+          <div id="evac-list" class="evac-list"></div>
+        </div>
+        <div>
+          <div class="team-heading"><h2>Müdahaleye hazır ekipler</h2></div>
+          <div id="responders"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <div id="toast" role="status"></div>
+  <script type="module" src="/js/dashboard.js?v=bericap13"></script>
+</body>
+</html>

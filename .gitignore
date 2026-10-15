@@ -1,0 +1,32 @@
+## .NET / ASP.NET Core
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+## SQLite database files
+*.db
+*.db-shm
+*.db-wal
+
+## Build outputs
+publish/
+*.nupkg
+*.snupkg
+
+## Secrets / config overrides
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
+secrets.json
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Rider / JetBrains
+.idea/
+
+## VS Code
+.vscode/

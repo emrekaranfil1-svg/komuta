@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>KOMUTA · Yönetim Paneli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css?v=bericap13">
+</head>
+<body class="admin-body">
+  <main class="admin-shell">
+    <header class="topbar">
+      <a class="brand" href="/">
+        <img class="brand-logo" src="/assets/logo.png" alt="BERICAP">
+      </a>
+      <div class="clock"><strong id="clock">00:00:00</strong><small id="date"></small></div>
+      <button id="fullscreen" class="icon-button" title="Tam ekran" aria-label="Tam ekran">⛶</button>
+      <a id="page-link" class="icon-button" href="/" title="Dashboard" aria-label="Dashboard">▦</a>
+    </header>
+
+    <div class="section-intro">
+      <div>
+        <h1>Yönetim paneli</h1>
+        <p class="muted">Personel kaydı, ekip türleri ve görev atamaları.</p>
+      </div>
+      <button id="add-person" class="primary-button" type="button">Yeni kişi</button>
+    </div>
+
+    <section class="admin-table-card">
+      <div class="table-toolbar">
+        <div>
+          <h2>Acil durum ekipleri</h2>
+          <span id="team-summary" class="muted"></span>
+        </div>
+        <button id="add-team" type="button">Yeni ekip türü</button>
+      </div>
+      <div id="team-catalog" class="team-catalog"></div>
+    </section>
+
+    <section class="admin-table-card">
+      <div class="table-toolbar">
+        <div>
+          <h2>Personel</h2>
+          <span id="person-summary" class="muted"></span>
+        </div>
+        <div class="filters">
+          <input id="search" type="search" placeholder="İsim veya unvan ara…" aria-label="Personel ara">
+          <select id="filter" aria-label="Durum filtresi">
+            <option value="all">Tüm durumlar</option>
+            <option value="inside">İçeride</option>
+            <option value="outside">Dışarıda</option>
+            <option value="visitor">Ziyaretçi / Taşeron</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr id="team-head">
+              <th>PERSONEL</th>
+              <th>TESİS DURUMU</th>
+              <th>İŞLEM</th>
+            </tr>
+          </thead>
+          <tbody id="person-table"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <button id="logout" type="button">Oturumu kapat</button>
+  </main>
+
+  <dialog id="person-dialog" class="wide-dialog">
+    <form id="person-form">
+      <span class="eyebrow" id="person-eyebrow">YENİ KAYIT</span>
+      <h2 id="person-title">Kişi ekle</h2>
+      <input type="hidden" id="person-id">
+      <div class="form-grid">
+        <label>Ad soyad
+          <input id="person-name" required minlength="2" autocomplete="name">
+        </label>
+        <label>Unvan
+          <input id="person-job" autocomplete="organization-title">
+        </label>
+        <label>Tür
+          <select id="person-kind">
+            <option value="employee">Çalışan</option>
+            <option value="visitor">Ziyaretçi</option>
+            <option value="contractor">Taşeron</option>
+          </select>
+        </label>
+        <label>Kart no
+          <input id="person-card" placeholder="Boş bırakılırsa otomatik">
+        </label>
+      </div>
+      <div class="check-row">
+        <label><input type="checkbox" id="person-inside"> Fabrikada içeride</label>
+        <label><input type="checkbox" id="person-vip"> VIP</label>
+      </div>
+      <p class="field-label">Ekipler</p>
+      <div id="person-teams" class="check-list"></div>
+      <div class="button-row">
+        <button type="button" value="cancel" id="person-cancel">Vazgeç</button>
+        <button class="primary-button" type="submit">Kaydet</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="team-dialog">
+    <form id="team-form">
+      <span class="eyebrow" id="team-eyebrow">YENİ EKİP</span>
+      <h2 id="team-title">Ekip türü oluştur</h2>
+      <input type="hidden" id="team-id">
+      <label>Ekip adı
+        <input id="team-name" required minlength="2">
+      </label>
+      <div class="check-row">
+        <label><input type="checkbox" id="team-critical"> Kritik ekip</label>
+      </div>
+      <div class="button-row">
+        <button type="button" id="team-cancel">Vazgeç</button>
+        <button class="primary-button" type="submit">Kaydet</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="confirm-dialog">
+    <form method="dialog">
+      <span class="eyebrow">İŞLEMİ DOĞRULA</span>
+      <h2 id="confirm-title"></h2>
+      <p id="confirm-copy"></p>
+      <div class="button-row">
+        <button value="cancel">Vazgeç</button>
+        <button class="danger-button" value="confirm">Sil</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="login-dialog">
+    <form id="login-form">
+      <span class="eyebrow">YETKİLİ ERİŞİM</span>
+      <h2>Kontrol merkezine giriş</h2>
+      <p>Yönetici hesabıyla devam edin.</p>
+      <input id="login-user" placeholder="Kullanıcı adı" required autocomplete="username">
+      <input type="password" id="login-pass" placeholder="Şifre" required autocomplete="current-password">
+      <p id="login-error" role="alert"></p>
+      <button class="primary-button" type="submit">Giriş yap</button>
+      <a href="/">Dashboard’a dön</a>
+    </form>
+  </dialog>
+
+  <div id="toast" role="status"></div>
+  <script type="module" src="/js/admin.js?v=bericap13"></script>
+</body>
+</html>
